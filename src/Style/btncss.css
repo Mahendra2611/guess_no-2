@@ -1,0 +1,46 @@
+.btn-7:hover .btn-before {
+    height: 100%;
+  }
+  
+  .btn-7:hover .btn-after {
+    width: 100%;
+  }
+  
+  .btn-7:hover {
+    color: rgba(251, 75, 2, 1);
+    background: transparent;
+  }
+  
+  .btn-7 span:before,
+  .btn-7 span:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgba(251, 75, 2, 1);
+    box-shadow:
+      -7px -7px 20px 0px rgba(255, 255, 255, 0.9),
+      -4px -4px 5px 0px rgba(255, 255, 255, 0.9),
+      7px 7px 20px 0px rgba(0, 0, 0, 0.2),
+      4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-7 span:before {
+    width: 2px;
+    height: 0%;
+  }
+  
+  .btn-7 span:after {
+    height: 2px;
+    width: 0%;
+  }
+  
+  .btn-7 span:hover:before {
+    height: 100%;
+  }
+  
+  .btn-7 span:hover:after {
+    width: 100%;
+  }
+  

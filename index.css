@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Button styles */
+.btn {
+  animation: pulse 1s infinite alternate;
+}
+.wongame{
+ @apply bg-red-700 text-xs sm:text-2xl text-white px-1 py-1 sm:px-2 sm:py-2
+}
+.cardCss{
+  @apply  bg-white px-2 py-1 text-xl font-semibold font-sans border-8 border-black rounded-tr-xl rounded-bl-xl
+}
+
+
+
