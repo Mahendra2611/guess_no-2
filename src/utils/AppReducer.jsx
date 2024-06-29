@@ -17,6 +17,14 @@ export default (state,action)=>{
             ...state,
             number:Math.floor(Math.random()*1000)
         }
+        case "ADD_USER_NAME":return{
+            ...state,
+            userName:action.payload,
+        }
+        case "HANLDE_OFFLINE":return{
+          ...state,
+          isOffline:id
+        }
         default:return {
             state
         }

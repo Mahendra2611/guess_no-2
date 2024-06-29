@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 const GuessNumber = () => {
     const InpRef = useRef(null)
-    
+    console.log("Guess Number Called")
     const [msg, setMsg] = useState("Game Started");
     const { reduceScore, score, GameOverState,number ,gameOver} = useContext(GlobalContext);
     const navigate = useNavigate()
@@ -63,12 +63,12 @@ const GuessNumber = () => {
     notify();
    },[msg,score])
     return (
-        <div className='   h-[70%] sm:h-[70%] w-full flex flex-col gap-[10%] pt-[42%] sm:pt-[15%] items-center'>
+        <div className='   h-[40%] sm:h-[70%] w-full flex flex-col gap-[10%] pt-[32%] sm:pt-[8%] items-center'>
             <div className='text-red-600 font-mono font-bold uppercase text-xl sm:text-2xl  '>
             <ToastContainer/>
             </div>
-            <div className='  flex flex-col gap-5  justify-center items-center'>
-                <h1 className='text-white  text-xl sm:font-bold sm:text-5xl font-serif'>Guess the Number </h1>
+            <div className='  flex flex-col gap-4 sm:gap-10 justify-center items-center'>
+                <h1 className=' text-white text-xl sm:font-bold sm:text-5xl font-serif'>Guess the Number </h1>
                 <input type='number' className='px-2 py-2 rounded-sm' ref={InpRef} placeholder='Enter the number' />
                 
                 <CustomButton onClick={checkNumber}>CHECK </CustomButton>

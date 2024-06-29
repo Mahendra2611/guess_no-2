@@ -23,8 +23,19 @@
  @apply bg-red-700 text-xs sm:text-2xl text-white px-1 py-1 sm:px-2 sm:py-2
 }
 .cardCss{
-  @apply  bg-white px-2 py-1 text-xl font-semibold font-sans border-8 border-black rounded-tr-xl rounded-bl-xl
+  @apply  bg-white m-auto text-wrap px-1 sm:px-2 py-1 text-xs sm:text-xl font-semibold font-sans border-8 border-black rounded-tr-xl rounded-bl-xl
 }
+/* App.css or any global CSS file */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar { /* WebKit browsers */
+  width: 0;
+  height: 0;
+}
+
 
 
 

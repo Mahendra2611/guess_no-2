@@ -4,14 +4,15 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import { auth, db } from "./firebase";
 import { setDoc, doc ,getDoc } from "firebase/firestore";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 
 function Signup() {
+  console.log("signup called")
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+const navigate = useNavigate();
   // const handleSignup  = (e) => {
   //   e.preventDefault();
   //   // Handle signup logic here
@@ -30,11 +31,14 @@ function Signup() {
       if (user) {
         await setDoc(doc(db,"Users",user.uid),{
           email: user.email,
-          userName : username
-        } );
+          userName : username,
+          score:0
+        });
+        localStorage.setItem("userEmail",user.email)
+        localStorage.setItem("uid",user.uid)
       }
       console.log("User Registered Successfully!!");
-      window.location.href = "/home";
+      navigate("/home")
       toast.success("User Registered Successfully!!", {
         position: "top-center",
       });

@@ -3,11 +3,27 @@ import { GlobalContext } from '../utils/ContextAPI'
 import { useNavigate } from 'react-router-dom'
 import LOST from "../IMG/6.png"
 import WIN from "../IMG/back_01.jpeg.jpg"
+import { db } from '../component/firebase'
+import { updateDoc,doc,getDoc } from 'firebase/firestore'
 const GameOver = () => {
   const { score ,resetScore,gameOver} = useContext(GlobalContext)
+  const uid = localStorage.getItem("uid")
   console.log("game over called")
   const navigate = useNavigate();
-  
+  const updateFireStore = async()=>{
+    const docRef = doc(db, "Users", uid)
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data().score);
+      if(docSnap.data().score < score){
+        await updateDoc(docRef, {
+          score:score
+        });
+      }
+    } else {
+      console.log("No such document!");
+    }
+   }
   const handleRestart = () => {
     resetScore();
     navigate("/body")
@@ -23,6 +39,9 @@ const GameOver = () => {
   useEffect(() => {
     if (!gameOver) {
       navigate("/");
+    }
+    else{
+      updateFireStore();
     }
   }, [gameOver, navigate]);
   return (

@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import home from "./images/home.png";
 import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from '../utils/ContextAPI';
 
 const Homepage = () => {
   const navigate = useNavigate();
+  const {IsAuthenticated} = useContext(GlobalContext)
   console.log("home page called")
   const handleClick = ()=>{
-    navigate("/login")
-    
+   if(IsAuthenticated){
+    console.log("home page called auth")
+    navigate("/home")
+   }
+    else{
+      console.log("home page login")
+      navigate("/login")
+    }
   }
  
   return (

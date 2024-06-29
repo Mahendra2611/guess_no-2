@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { createBrowserRouter, RouterProvider,Navigate } from 'react-router-dom'
+import React, { useContext ,useEffect} from 'react'
+import { createBrowserRouter, RouterProvider,Navigate, useNavigate } from 'react-router-dom'
 import Home from './components/Home'
 import Body from './components/Body'
 import GlobalProvider, { GlobalContext } from './utils/ContextAPI'
@@ -10,38 +10,57 @@ import Login from "./component/Login";
 import SignUp from "./component/SignUp";
 import Homepage from "./component/Homepage";
 import { auth } from "./component/firebase";
+import Offline from './utils/Offline'
 import { ToastContainer } from "react-toastify";
+import ErrorElement from './components/ErrorElement'
+
+const Authentication = ({children})=>{
+  const {IsAuthenticated} = useContext(GlobalContext)
+  return IsAuthenticated?children:<Navigate to={"/"}/>
+  
+}
 
 const App = () => {
  
   const AppProvider = createBrowserRouter([
     {
       path: "/",
-      element: <Homepage/>
+      element: <Homepage/>,
+      errorElement:<ErrorElement/>
     },
     {
       path: "/body",
-      element: <Body />
+      element: <Authentication><Body/></Authentication>,
+      errorElement:<ErrorElement/>
     },
     {
       path: "/login",
-      element: <Login/>
+      element: <Login/>,
+      errorElement:<ErrorElement/>
     },
     {
       path: "/signup",
-      element: <SignUp/>
+      element: <SignUp/>,
+      errorElement:<ErrorElement/>
     },
     {
       path: "/home",
-      element: <Home/>
+      element:  <Authentication><Home/></Authentication>,
+      errorElement:<ErrorElement/>
     },
     {
       path: "/gameover",
-      element:<GameOver/>
+      element: <Authentication><GameOver/></Authentication>,
+      errorElement:<ErrorElement/>
     },
     {
       path: "/leaderboard",
-      element: <LeaderBoard />
+      element:  <Authentication><LeaderBoard/></Authentication>,
+      errorElement:<ErrorElement/>
+    },
+    {
+      path:"/offline",
+      element:<Offline/>
     }
   ])
   return (

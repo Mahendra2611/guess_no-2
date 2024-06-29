@@ -1,6 +1,6 @@
 // src/Login.js
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
@@ -8,37 +8,45 @@ import { toast } from "react-toastify";
 
 import {  onAuthStateChanged } from "firebase/auth";
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+ const email = useRef(null)
+  const password = useRef(null)
   console.log("log in called")
   const navigate  = useNavigate();
   const handleLogin = async (e) => {
     
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email.current.value, password.current.value);
       console.log("User logged in Successfully");
       navigate("/")
+      localStorage.setItem("userEmail",user.email)
+      localStorage.setItem("uid",user.uid)
       toast.success("User logged in Successfully", {
         position: "top-center",
       });
     } catch (error) {
       console.log(error.message);
-      toast.error(error.message, {
+      toast.error("Email or Password is Incorrect", {
         position: "bottom-center",
+        autoClose: 2000,
       });
     }
   };
-  useEffect(()=>{
   
+  useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("use already loged in")
-        const uid = user.uid;
+        console.log("email" + user.email)
+        console.log(localStorage.getItem("userEmail"))
+        localStorage.setItem("userEmail",user.email)
+        localStorage.setItem("uid",user.uid)
+        // const uid = user.uid;
        navigate("/home")
       } else {
-        console.log("user not loggein")
-        navigate("/")
+        localStorage.removeItem("userEmail")
+        localStorage.removeItem("uid")
       
       }
     });
@@ -53,11 +61,14 @@ function Login() {
               Email
             </label>
             <input
+               
               type="email"
               id="email"
+              ref={email}
               className="w-full px-3 py-2 mt-1 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+             // value={email}
+             placeholder='Enter Your Email'
+             // onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -66,11 +77,13 @@ function Login() {
               Password
             </label>
             <input
+            
               type="password"
               id="password"
+              ref={password}
               className="w-full px-3 py-2 mt-1 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Enter the Password'
+             // onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
