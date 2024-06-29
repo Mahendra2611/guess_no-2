@@ -1,21 +1,24 @@
 // src/Login.js
 
-import React, { useState } from 'react';
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import {Link, useNavigate} from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
 import { toast } from "react-toastify";
 
+import {  onAuthStateChanged } from "firebase/auth";
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  console.log("log in called")
+  const navigate  = useNavigate();
   const handleLogin = async (e) => {
+    
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("User logged in Successfully");
-      window.location.href = "/home";
+      navigate("/")
       toast.success("User logged in Successfully", {
         position: "top-center",
       });
@@ -26,7 +29,20 @@ function Login() {
       });
     }
   };
-
+  useEffect(()=>{
+  
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("use already loged in")
+        const uid = user.uid;
+       navigate("/home")
+      } else {
+        console.log("user not loggein")
+        navigate("/")
+      
+      }
+    });
+  },[])
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded shadow-md">

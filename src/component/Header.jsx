@@ -41,7 +41,7 @@ const Header=()=> {
 
   return (
     <div>
-      <div className="bg-black text-white p-3 flex justify-between items-center">
+      <div className="bg-black  text-white p-3 flex justify-between items-center">
      <a href="/">
      <img src={logo} className="h-14 w-auto"/>
      </a> 

@@ -22,7 +22,7 @@ function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    console.log("Document data:", docSnap.data());
+    //console.log("Document data:", docSnap.data());
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       const user = auth.currentUser;
@@ -34,7 +34,7 @@ function Signup() {
         } );
       }
       console.log("User Registered Successfully!!");
-      window.location.href = "/login";
+      window.location.href = "/home";
       toast.success("User Registered Successfully!!", {
         position: "top-center",
       });

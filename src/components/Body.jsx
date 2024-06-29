@@ -14,7 +14,7 @@ const Body = () => {
    }
   //  bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%
   return (
-    <div className='w-screen h-screen ' style={{backgroundImage:`url(${IMG3})`,backgroundSize: 'cover', backgroundPosition: 'center',backgroundRepeat:"no-repeat"}}>
+    <div className='w-[100%] h-[100%] ' style={{backgroundImage:`url(${IMG3})`,backgroundSize: 'cover', backgroundPosition: 'center',backgroundRepeat:"no-repeat"}}>
       <GuessNumber/>
       <div>
       <div className='float-right  my-[19%] sm:my-[2%] mx-[2%] sm:mx-[7%]  py-2 px-2 rounded-lg font-semibold text-sm sm:text-2xl bg-gradient-to-r from-pink-500 to-yellow-500 '>
