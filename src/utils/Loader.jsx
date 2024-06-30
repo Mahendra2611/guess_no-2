@@ -1,12 +1,13 @@
+// src/component/Loader.js
 import React from 'react';
-import LoaderCss from './LoaderCss';
+import './Loader.css'; // Import the custom CSS for keyframes
 
 const Loader = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <LoaderCss />
+    <div className="flex items-center justify-center min-h-screen">
+      <span className="loader"></span>
     </div>
   );
-}
+};
 
 export default Loader;

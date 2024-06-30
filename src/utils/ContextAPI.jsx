@@ -6,10 +6,9 @@ const intialState = {
     gameOver:false,
     number:Math.floor(Math.random()*1000),
     userName:null,
-    IsAuthenticated:localStorage.getItem("userEmail") == null?false:true,
-    isOffline:false,
+    IsAuthenticated:false,
+    
 }
-
 export const GlobalContext = createContext(intialState)
 const GlobalProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AppReducer, intialState);
@@ -36,39 +35,26 @@ const GlobalProvider = ({ children }) => {
            payload:id
         })
     }
-    function addUserName(name){
+   
+    function handleStorageChange(id){
         dispatch({
-            type:"ADD_USER_NAME",
-            id:name
-        })
-    }
-    function handleOfflineOnline(id){
-        dispatch({
-            type:"HANLDE_OFFLINE",
-            id:id
-        })
-    }
-    useEffect(()=>{
-       const handleOffline = ()=>{ handleOfflineOnline(true)
-        }
-       const handleOnline = ()=>{
-            handleOfflineOnline(false);
-        }
-        window.addEventListener("offline",handleOffline);
-        window.addEventListener("online",handleOnline);
-    },[])
+          type: "SET_AUTH",
+          payload: id,
+        });
+      };
+    
+    
     return <GlobalContext.Provider value={{
         score: state.score,
         gameOver:state.gameOver,
         number:state.number,
         userName:state.userName,
         IsAuthenticated:state.IsAuthenticated,
-        isOffline:state.isOffline,
+        handleStorageChange,
         reduceScore,
         GameOverState,
         resetScore,
         generateNumber,
-        addUserName
     }}>
         {children}
     </GlobalContext.Provider>

@@ -27,6 +27,7 @@ const App = () => {
     {
       path:"/",
       element:<AppChild/>,
+      errorElement:<ErrorElement/>,
       children:[{
         path: "/",
         element: <Homepage/>,
@@ -68,10 +69,6 @@ const App = () => {
       }
       ,
     ]
-    },
-    {
-      path:"/loader",
-      element:<Loader/>
     }
     ])
   return (

@@ -1,60 +1,40 @@
-// src/Login.js
+import React, { useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from './firebase';
+import { toast } from 'react-toastify';
+import Loader from '../utils/Loader'; // Import your loader component
 
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import {Link, useNavigate} from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase";
-import { toast } from "react-toastify";
-
-import {  onAuthStateChanged } from "firebase/auth";
 function Login() {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
- const email = useRef(null)
-  const password = useRef(null)
-  console.log("log in called")
-  const navigate  = useNavigate();
+  const email = useRef(null);
+  const password = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const handleLogin = async (e) => {
-    
     e.preventDefault();
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email.current.value, password.current.value);
-      console.log("User logged in Successfully");
-      navigate("/")
-      // localStorage.setItem("userEmail",user.email)
-      // localStorage.setItem("uid",user.uid)
-      toast.success("User logged in Successfully", {
-        position: "top-center",
+      console.log('User logged in Successfully');
+      toast.success('User logged in Successfully', {
+        position: 'top-center',
       });
+      navigate('/');
     } catch (error) {
       console.log(error.message);
-      toast.error("Email or Password is Incorrect", {
-        position: "bottom-center",
+      toast.error('Email or Password is Incorrect', {
+        position: 'bottom-center',
         autoClose: 2000,
       });
+    } finally {
+      setLoading(false);
     }
   };
-  
-  // useEffect(()=>{
-  //   onAuthStateChanged(auth, (user) => {
-  //     console.log("on auth called")
-  //     if (user) {
-  //       console.log("email -> " + user.email)
-  //       console.log(localStorage.getItem("userEmail"))
-  //       localStorage.setItem("userEmail",user.email)
-  //       localStorage.setItem("uid",user.uid)
-  //       // const uid = user.uid;
-  //      navigate("/home")
-  //     } else {
-  //      // console.log("on auth ese called")
-  //       // localStorage.removeItem("userEmail")
-  //       // localStorage.removeItem("uid")
-      
-  //     }
-  //   });
-  // },[])
-  return (
+
+  return loading ? <Loader /> :(
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded shadow-md">
         <h2 className="text-2xl font-bold text-center">Login</h2>
         <form onSubmit={handleLogin} className="space-y-6">
