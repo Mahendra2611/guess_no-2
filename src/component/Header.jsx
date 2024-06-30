@@ -3,16 +3,19 @@ import logo from "./images/logo.png"
 import { useEffect, useState } from "react";
 import { auth, db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
-
+import { onAuthStateChanged } from 'firebase/auth';
+import Loader from '../utils/Loader';
 const Header=()=> {
   const [userDetails, setUserDetails] = useState(null);
-
-  const fetchUserData = async () => {
-    auth.onAuthStateChanged(async(user)=> {
+console.log("header called")
+  const fetchUserData = () => {
+    onAuthStateChanged(auth,async(user)=> {
       console.log(user);
       if(user!=null){
       const docRef = doc(db,"Users", user.uid);
       const docSnap = await getDoc(docRef);
+      localStorage.setItem("userEmail",user.email)
+      localStorage.setItem("uid",user.uid)
       if (docSnap.exists()) {
         setUserDetails(docSnap.data());
         console.log(docSnap.data());
@@ -20,6 +23,9 @@ const Header=()=> {
       else {
         console.log("User is not logged in");
       }
+    }
+    else{
+      console.log("user doesnt exist")
     }
     });
   };
@@ -32,14 +38,16 @@ const Header=()=> {
     try {
       console.log(userDetails);
       await auth.signOut();
-      window.location.href = "/login";
+      localStorage.removeItem("userEmail")
+      localStorage.removeItem("uid")
+      window.location.href = "/";
       console.log("User logged out successfully!");
     } catch (error) {
       console.error("Error logging out:", error.message);
     }
   }
 
-  return (
+  return userDetails==null?<Loader/> : (
     <div>
       <div className="bg-black  text-white p-3 flex justify-between items-center">
      <a href="/">

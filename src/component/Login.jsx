@@ -21,8 +21,8 @@ function Login() {
       await signInWithEmailAndPassword(auth, email.current.value, password.current.value);
       console.log("User logged in Successfully");
       navigate("/")
-      localStorage.setItem("userEmail",user.email)
-      localStorage.setItem("uid",user.uid)
+      // localStorage.setItem("userEmail",user.email)
+      // localStorage.setItem("uid",user.uid)
       toast.success("User logged in Successfully", {
         position: "top-center",
       });
@@ -35,22 +35,24 @@ function Login() {
     }
   };
   
-  useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("email" + user.email)
-        console.log(localStorage.getItem("userEmail"))
-        localStorage.setItem("userEmail",user.email)
-        localStorage.setItem("uid",user.uid)
-        // const uid = user.uid;
-       navigate("/home")
-      } else {
-        localStorage.removeItem("userEmail")
-        localStorage.removeItem("uid")
+  // useEffect(()=>{
+  //   onAuthStateChanged(auth, (user) => {
+  //     console.log("on auth called")
+  //     if (user) {
+  //       console.log("email -> " + user.email)
+  //       console.log(localStorage.getItem("userEmail"))
+  //       localStorage.setItem("userEmail",user.email)
+  //       localStorage.setItem("uid",user.uid)
+  //       // const uid = user.uid;
+  //      navigate("/home")
+  //     } else {
+  //      // console.log("on auth ese called")
+  //       // localStorage.removeItem("userEmail")
+  //       // localStorage.removeItem("uid")
       
-      }
-    });
-  },[])
+  //     }
+  //   });
+  // },[])
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded shadow-md">

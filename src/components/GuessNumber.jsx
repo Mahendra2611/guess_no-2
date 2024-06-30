@@ -68,7 +68,7 @@ const GuessNumber = () => {
             <ToastContainer/>
             </div>
             <div className='  flex flex-col gap-4 sm:gap-10 justify-center items-center'>
-                <h1 className=' text-white text-xl sm:font-bold sm:text-5xl font-serif'>Guess the Number </h1>
+                <h1 className=' text-white text-xl sm:font-bold sm:text-5xl font-serif'>Guess the Number between 1-1000</h1>
                 <input type='number' className='px-2 py-2 rounded-sm' ref={InpRef} placeholder='Enter the number' />
                 
                 <CustomButton onClick={checkNumber}>CHECK </CustomButton>

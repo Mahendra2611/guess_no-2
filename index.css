@@ -20,7 +20,7 @@
   animation: pulse 1s infinite alternate;
 }
 .wongame{
- @apply bg-red-700 text-xs sm:text-2xl text-white px-1 py-1 sm:px-2 sm:py-2
+ @apply bg-red-700 text-xs font-bold sm:text-2xl text-white px-1 py-1 sm:px-2 sm:py-2
 }
 .cardCss{
   @apply  bg-white m-auto text-wrap px-1 sm:px-2 py-1 text-xs sm:text-xl font-semibold font-sans border-8 border-black rounded-tr-xl rounded-bl-xl

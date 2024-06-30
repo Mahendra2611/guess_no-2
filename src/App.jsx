@@ -13,60 +13,71 @@ import { auth } from "./component/firebase";
 import Offline from './utils/Offline'
 import { ToastContainer } from "react-toastify";
 import ErrorElement from './components/ErrorElement'
-
+import Loader from './utils/Loader'
+import AppChild from './AppChild'
 const Authentication = ({children})=>{
   const {IsAuthenticated} = useContext(GlobalContext)
   return IsAuthenticated?children:<Navigate to={"/"}/>
-  
 }
 
 const App = () => {
- 
+  const {IsAuthenticated} = useContext(GlobalContext)
+  console.log(IsAuthenticated)
   const AppProvider = createBrowserRouter([
     {
-      path: "/",
-      element: <Homepage/>,
-      errorElement:<ErrorElement/>
+      path:"/",
+      element:<AppChild/>,
+      children:[{
+        path: "/",
+        element: <Homepage/>,
+        errorElement:<ErrorElement/>
+      },
+      {
+        path: "/body",
+        element: <Authentication><Body/></Authentication>,
+        errorElement:<ErrorElement/>
+      },
+      {
+        path: "/login",
+        element: <Login/>,
+        errorElement:<ErrorElement/>
+      },
+      {
+        path: "/signup",
+        element: <SignUp/>,
+        errorElement:<ErrorElement/>
+      },
+      {
+        path: "/home",
+        element:  <Authentication><Home/></Authentication>,
+        errorElement:<ErrorElement/>
+      },
+      {
+        path: "/gameover",
+        element: <Authentication><GameOver/></Authentication>,
+        errorElement:<ErrorElement/>
+      },
+      {
+        path: "/leaderboard",
+        element:  <Authentication><LeaderBoard/></Authentication>,
+        errorElement:<ErrorElement/>
+      },
+      {
+        path:"/offline",
+        element:<Offline/>
+      }
+      ,
+    ]
     },
     {
-      path: "/body",
-      element: <Authentication><Body/></Authentication>,
-      errorElement:<ErrorElement/>
-    },
-    {
-      path: "/login",
-      element: <Login/>,
-      errorElement:<ErrorElement/>
-    },
-    {
-      path: "/signup",
-      element: <SignUp/>,
-      errorElement:<ErrorElement/>
-    },
-    {
-      path: "/home",
-      element:  <Authentication><Home/></Authentication>,
-      errorElement:<ErrorElement/>
-    },
-    {
-      path: "/gameover",
-      element: <Authentication><GameOver/></Authentication>,
-      errorElement:<ErrorElement/>
-    },
-    {
-      path: "/leaderboard",
-      element:  <Authentication><LeaderBoard/></Authentication>,
-      errorElement:<ErrorElement/>
-    },
-    {
-      path:"/offline",
-      element:<Offline/>
+      path:"/loader",
+      element:<Loader/>
     }
-  ])
+    ])
   return (
     <div>
       <GlobalProvider>
-         <Header/>
+         
         <RouterProvider router={AppProvider} />
         <ToastContainer/>
       </GlobalProvider>

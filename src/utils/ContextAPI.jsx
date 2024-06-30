@@ -9,11 +9,11 @@ const intialState = {
     IsAuthenticated:localStorage.getItem("userEmail") == null?false:true,
     isOffline:false,
 }
-console.log(intialState)
+
 export const GlobalContext = createContext(intialState)
 const GlobalProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AppReducer, intialState);
-   
+    console.log("global called")
     function reduceScore(n) {
         dispatch({
             type: "REDUCE_SCORE",

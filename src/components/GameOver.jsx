@@ -45,7 +45,7 @@ const GameOver = () => {
     }
   }, [gameOver, navigate]);
   return (
-    <div className='h-screen flex flex-col   items-center justify-between py-[8%] sm:py-[3%]' style={{backgroundImage:`url(${score == 0 ? LOST : WIN})`,backgroundPosition:"center",backgroundSize:"cover"}}>
+    <div className=' flex flex-col h-[100vh]  items-center justify-around py-[8%] sm:py-[3%]' style={{backgroundImage:`url(${score == 0 ? LOST : WIN})`,backgroundPosition:"center",backgroundSize:"cover"}}>
       <div className='wongame px-2 py-2'>
         Your Score - {score}
       </div>

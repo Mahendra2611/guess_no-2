@@ -21,7 +21,7 @@ const Body = () => {
         Score - {score}
       </div>
       <div onClick={handleScoreCard} className='float-left  my-[35%] cursor-pointer sm:my-[2%] mx-[2%] sm:mx-[7%] py-2 px-2 rounded-lg font-semibold text-sm sm:text-3xl bg-gradient-to-r from-pink-500 to-yellow-500 '>
-        ScoreCard
+        LEADERBOARD
       </div>
       </div>
       
